@@ -1,8 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use slint::private_unstable_api::re_exports::Float;
-use slint::ToSharedString;
 use rand::Rng;
+use slint::ToSharedString;
 slint::include_modules!();
 
 fn build_spec_char_vec() -> Vec<u32> {
@@ -56,10 +55,10 @@ fn main() {
         let mut password: String = "".to_string();
         let mut counter: u8 = 0;
         let mut rng = rand::rng();
-        let mut character: String = String::new();
+        let mut character: String;
 
         if special_characters {
-            let mut special_character_vec: Vec<u32> = build_spec_char_vec();
+            let special_character_vec: Vec<u32> = build_spec_char_vec();
             let vec_length: u8 = special_character_vec.len() as u8;
 
             while counter < password_length {
@@ -70,7 +69,7 @@ fn main() {
             }
         }
         else {
-            let mut character_vec: Vec<u32> = build_char_vec();
+            let character_vec: Vec<u32> = build_char_vec();
             let vec_length: u8 = character_vec.len() as u8;
 
             while counter < password_length {
@@ -84,5 +83,5 @@ fn main() {
         main_window_weak.unwrap().set_password(password.to_shared_string());
     });
 
-    main_window.run();
+    main_window.run().unwrap();
 }
