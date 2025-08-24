@@ -7,6 +7,8 @@ export component MainWindow inherits Window {
     out property <float> password_length <=> pass_length.value;
     in-out property <string> password <=> gen_password.text;
 
+    callback generate_password;
+
     width: 350px;
     height: 250px;
 
@@ -49,6 +51,7 @@ export component MainWindow inherits Window {
         }
 
         HorizontalLayout {
+            spacing: 15px;
             Text {
                 text: "Use Special Characters (!@#$%...)";
                 font-size: 11pt;
@@ -64,7 +67,7 @@ export component MainWindow inherits Window {
             text: "Generate Password";
             primary: true;
             clicked() => {
-                debug("Generate password callback");
+                root.generate_password();
             }
         }
 
