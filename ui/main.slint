@@ -1,0 +1,87 @@
+import { Button, CheckBox, Palette, Slider, StyleMetrics } from "std-widgets.slint";
+export component MainWindow inherits Window {
+    title: "Password Generator";
+    background: Palette.background;
+
+    out property <bool> use_special_characters <=> use_spec_chars.checked;
+    out property <float> password_length <=> pass_length.value;
+    in-out property <string> password <=> gen_password.text;
+
+    width: 350px;
+    height: 250px;
+
+    VerticalLayout{
+        spacing: 20px;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        alignment: start;
+
+        HorizontalLayout {
+            spacing: 10px;
+
+            Text {
+                text: "Password Length";
+                font-size: 11pt;
+                horizontal-alignment: left;
+            }
+            pass_length_text := Text {
+                font-size: 11pt;
+                font-weight: 650;
+                horizontal-alignment: left;
+            }
+            pass_length :=  Slider {
+                value: 8;
+                minimum: 8;
+                maximum: 24;
+                step: 1;
+                init() => {
+                    pass_length_text.text = self.value;
+                }
+                changed(value) => {
+                    pass_length_text.text = self.value.round();
+                }
+                released(value) => {
+                    self.value = value.round();
+                }
+            }
+        }
+
+        HorizontalLayout {
+            Text {
+                text: "Use Special Characters (!@#$%...)";
+                font-size: 11pt;
+                horizontal-alignment: left;
+            }
+
+            use_spec_chars := CheckBox {
+                checked: true;
+            }
+        }
+
+        Button {
+            text: "Generate Password";
+            primary: true;
+            clicked() => {
+                debug("Generate password callback");
+            }
+        }
+
+        Text {
+            text: "Generated Password";
+            font-size: 12pt;
+            font-weight: 800;
+            horizontal-alignment: center;
+        }
+
+        gen_password:= TextInput {
+            font-size: 12pt;
+            horizontal-alignment: center;
+            text: "P1@ceh0lder";
+            read-only: true;
+            single-line: true;
+            input-type: text;
+        }
+    }
+}
