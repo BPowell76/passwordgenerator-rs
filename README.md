@@ -4,7 +4,7 @@ PasswordGenerator-rs is a simple rust application built with the Slint GUI libra
 This application aims to offer a local, offline password generation tool using standard ASCII character codes.
 Passwords can 8 to 24 characters in length and have the option to not use special characters.
 
-![Static Badge](https://img.shields.io/badge/cargo-1.89.0-orange)
+![Static Badge](https://img.shields.io/badge/cargo-1.89.0-orange) [![Latest Release](https://gitlab.com/TheMet4lGod/passwordgenerator-rs/-/badges/release.svg)](https://gitlab.com/TheMet4lGod/passwordgenerator-rs/-/releases)
 
 ## Dependency List
 The following dependencies are used in this project:
