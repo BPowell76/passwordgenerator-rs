@@ -1,17 +1,19 @@
-stages:
-  - release
-  
+
+build_project_release:
+  stage: build
+  script:
+    - cargo build -r
+  artifacts:
+    paths:
+      - release/passwordgenerator-rs_${CI_COMMIT_TAG}
+
 release_job:
-  stage: release
+  stage: deploy
   image: registry.gitlab.com/gitlab-org/cli:latest
   rules:
     - if: $CI_COMMIT_TAG
   script:
     - echo "running release_job"
-    - cargo build -r
-  artifacts:
-    paths:
-      - release/passwordgenerator-rs_${CI_COMMIT_TAG}
   release:
     tag_name: '$CI_COMMIT_TAG'
     description: '$CI_COMMIT_TAG'
