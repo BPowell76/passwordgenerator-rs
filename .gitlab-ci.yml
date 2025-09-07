@@ -9,7 +9,8 @@ build_project_amd64_release:
     - cargo build -r
   artifacts:
     paths:
-      - target/release/passwordgenerator-rs_amd64
+      - target/release/
+    name: "passwordgenerator-rs_amd64"
 
 release_job:
   stage: deploy
