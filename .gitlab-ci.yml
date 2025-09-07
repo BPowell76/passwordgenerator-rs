@@ -1,11 +1,15 @@
+stages:
+  - build
+  - deploy
 
-build_project_release:
+build_project_amd64_release:
   stage: build
+  image: rust
   script:
     - cargo build -r
   artifacts:
     paths:
-      - release/passwordgenerator-rs_${CI_COMMIT_TAG}
+      - target/release/passwordgenerator-rs_amd64
 
 release_job:
   stage: deploy
