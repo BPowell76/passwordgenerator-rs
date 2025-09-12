@@ -9,11 +9,11 @@ Passwords can 8 to 24 characters in length and have the option to not use specia
 ## Dependency List
 The following dependencies are used in this project:
 
-| Dependency    | Version | Dependency Status                                                                                                     |
-| :---:         |:-------:|:----------------------------------------------------------------------------------------------------------------------|
-| rand          |  0.9.2  | [![dependency status](https://deps.rs/crate/rand/0.9.2/status.svg)](https://deps.rs/crate/rand/0.9.2)                 |
-| slint         | 1.13.0  | [![dependency status](https://deps.rs/crate/slint/1.13.0/status.svg)](https://deps.rs/crate/slint/1.13.0)             |
-| slint-build   | 1.13.0  | [![dependency status](https://deps.rs/crate/slint-build/1.13.0/status.svg)](https://deps.rs/crate/slint-build/1.13.0) |
+| Dependency    |   Version   | Dependency Status                                                                                                     |
+| :---:         |:-----------:|:----------------------------------------------------------------------------------------------------------------------|
+| rand          | 0.10.0-rc.0 | [![dependency status](https://deps.rs/crate/rand/0.10.0-rc.0/status.svg)](https://deps.rs/crate/rand/0.10.0-rc.0)     |
+| slint         |   1.13.1    | [![dependency status](https://deps.rs/crate/slint/1.13.1/status.svg)](https://deps.rs/crate/slint/1.13.1)             |
+| slint-build   |   1.13.1    | [![dependency status](https://deps.rs/crate/slint-build/1.13.1/status.svg)](https://deps.rs/crate/slint-build/1.13.1) |
 
 
 ## Installation
