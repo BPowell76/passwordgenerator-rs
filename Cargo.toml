@@ -1,9 +1,10 @@
 [package]
 name = "passwordgenerator-rs"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2024"
 
 [dependencies]
+arboard = "3.6.1"
 rand = "0.10.0-rc.0"
 slint = "1.13.1"
 

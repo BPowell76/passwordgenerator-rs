@@ -1,5 +1,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
+use std::rc::Rc;
+use arboard::{
+    Clipboard
+};
 use rand::Rng;
 use slint::ToSharedString;
 slint::include_modules!();
@@ -46,12 +50,14 @@ fn build_char_vec() -> Vec<u32> {
 }
 
 fn main() {
-    let main_window = MainWindow::new().unwrap();
-    let main_window_weak = main_window.as_weak();
+    let main_window = std::rc::Rc::new(MainWindow::new().unwrap());
+    let main_window_weak_password_gen = Rc::downgrade(&main_window);
+    let main_window_weak_copy_clipboard = Rc::downgrade(&main_window);
 
     main_window.on_generate_password( move || {
-        let password_length: u8 = main_window_weak.unwrap().get_password_length() as u8;
-        let special_characters: bool = main_window_weak.unwrap().get_use_special_characters();
+        let main = main_window_weak_password_gen.upgrade().unwrap();
+        let password_length: u8 = main.get_password_length() as u8;
+        let special_characters: bool = main.get_use_special_characters();
         let mut password: String = "".to_string();
         let mut counter: u8 = 0;
         let mut rng = rand::rng();
@@ -80,7 +86,15 @@ fn main() {
             }
         }
 
-        main_window_weak.unwrap().set_password(password.to_shared_string());
+        main.set_password(password.to_shared_string());
+    });
+
+    main_window.on_copy_to_clipboard(move || {
+        let main = main_window_weak_copy_clipboard.upgrade().unwrap();
+        let mut clip = Clipboard::new().unwrap();
+        let password_text: String = main.get_password().to_string();
+        clip.set_text(password_text);
+        println!("{:?}", clip.get_text());
     });
 
     main_window.run().unwrap();

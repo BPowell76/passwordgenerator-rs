@@ -1,4 +1,4 @@
-import { Button, CheckBox, Palette, Slider, StyleMetrics } from "std-widgets.slint";
+import { Button, CheckBox, Palette, Slider, StyleMetrics, LineEdit } from "std-widgets.slint";
 export component MainWindow inherits Window {
     title: "Password Generator";
     background: Palette.background;
@@ -8,9 +8,10 @@ export component MainWindow inherits Window {
     in-out property <string> password <=> gen_password.text;
 
     callback generate_password;
+    callback copy_to_clipboard;
 
-    width: 350px;
-    height: 250px;
+    width: 500px;
+    height: 300px;
 
     VerticalLayout{
         spacing: 20px;
@@ -78,13 +79,22 @@ export component MainWindow inherits Window {
             horizontal-alignment: center;
         }
 
-        gen_password:= TextInput {
-            font-size: 12pt;
-            horizontal-alignment: center;
-            text: "P1@ceh0lder";
-            read-only: true;
-            single-line: true;
-            input-type: text;
+        HorizontalLayout {
+            gen_password:= LineEdit {
+                font-size: 12pt;
+                horizontal-alignment: center;
+                text: "P1@ceh0lder";
+                read-only: true;
+                input-type: text;
+            }
+
+            Button {
+                icon: @image-url("../ui/assets/copy-solid-full.svg");
+                clicked() => {
+                    root.copy_to_clipboard();
+                }
+            }
         }
+
     }
 }
