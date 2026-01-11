@@ -1,6 +1,6 @@
 # PasswordGenerator-rs
 ## Description
-PasswordGenerator-rs is a simple rust application built with the **egui** GUI library.
+PasswordGenerator-rs is a simple rust application built with the **egui** GUI library and **eframe** framework.
 This application aims to offer a local, offline password generation tool using standard ASCII character codes.
 Passwords can 8 to 24 characters in length and have the option to not use special characters.
 
