@@ -6,6 +6,7 @@ use arboard::{
 };
 use rand::Rng;
 use eframe::egui;
+use egui::style::HandleShape;
 
 fn build_spec_char_vec() -> Vec<u32> {
     let mut vector: Vec<u32> = Vec::new();
@@ -61,21 +62,25 @@ fn main() -> eframe::Result<()> {
     )
 }
 
-struct PasswordGenerator;
+struct PasswordGenerator {
+    password_length: u8,
+}
 
 impl Default for PasswordGenerator {
     fn default() -> Self {
-        Self
+        Self {
+            password_length: 8,
+        }
     }
 }
 
 impl eframe::App for PasswordGenerator {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading("Hello World!");
-            if ui.button("Click me!").clicked() {
-                println!("Click me!");
-            }
+            ui.add(egui::Slider::new(&mut self.password_length, 8..=24)
+                .handle_shape(HandleShape::Circle)
+                .trailing_fill(true)
+                .text("Password Length"));
         });
     }
 }
