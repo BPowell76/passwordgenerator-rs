@@ -5,8 +5,7 @@ use arboard::{
     Clipboard
 };
 use rand::Rng;
-use slint::ToSharedString;
-slint::include_modules!();
+use eframe::egui;
 
 fn build_spec_char_vec() -> Vec<u32> {
     let mut vector: Vec<u32> = Vec::new();
@@ -49,11 +48,39 @@ fn build_char_vec() -> Vec<u32> {
     return vector;
 }
 
-fn main() {
-    let main_window = std::rc::Rc::new(MainWindow::new().unwrap());
-    let main_window_weak_password_gen = Rc::downgrade(&main_window);
-    let main_window_weak_copy_clipboard = Rc::downgrade(&main_window);
+fn main() -> eframe::Result<()> {
+    let options = eframe::NativeOptions {
+        viewport: egui::ViewportBuilder::default().with_inner_size([800.0, 600.0]),
+        ..Default::default()
+    };
 
+    eframe::run_native(
+        "Password Generator",
+        options,
+        Box::new(|_ctx| Ok(Box::new(PasswordGenerator::default()))),
+    )
+}
+
+struct PasswordGenerator;
+
+impl Default for PasswordGenerator {
+    fn default() -> Self {
+        Self
+    }
+}
+
+impl eframe::App for PasswordGenerator {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        egui::CentralPanel::default().show(ctx, |ui| {
+            ui.heading("Hello World!");
+            if ui.button("Click me!").clicked() {
+                println!("Click me!");
+            }
+        });
+    }
+}
+
+/*
     main_window.on_generate_password( move || {
         let main = main_window_weak_password_gen.upgrade().unwrap();
         let password_length: u8 = main.get_password_length() as u8;
@@ -98,4 +125,4 @@ fn main() {
     });
 
     main_window.run().unwrap();
-}
+     */
