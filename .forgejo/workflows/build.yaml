@@ -1,10 +1,46 @@
 on: [push]
 jobs:
-  checkout:
+  checkout-and-cache:
     runs-on: node-lts-trixie
     steps:
-      - uses: actions/checkout@v4
+      - name: cache restore
+        id: cacherestore
+        uses: actions/restore@v4
+        with:
+          path: |
+            /usr/local/bin/passwordgenerator-rs
+          key: cachekey
+
+      - name: cache hit
+        run: |
+          set -x
+          test "${{ steps.cacherestore.outputs.cache-hit }}" != true
+
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: cache save
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            /usr/local/bin/passwordgenerator-rs
+          key: ${{ steps.cacherestore.outputs.cache-primary-key }}
   build:
     runs-on: rust-latest
+    needs: [checkout-and-cache]
     steps:
-      - run: cargo build -v
+      - name: cache restore
+        id: cacherestorebuild
+        uses: actions/restore@v4
+        with:
+          path: |
+            /usr/local/bin/passwordgenerator-rs
+          key: cachekey
+
+      - name: build project
+        run: cargo build -v
+
+      - name: cache hit
+        run: |
+          set -x
+          test "${{ steps.cacherestorebuild.outputs.cache-hit }}" = true
