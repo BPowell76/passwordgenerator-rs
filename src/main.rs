@@ -7,11 +7,11 @@ use arboard::{
 use rand::Rng;
 use eframe::egui;
 use egui::style::HandleShape;
-use egui::TextStyle;
+use egui::FontId;
 
 fn main() -> eframe::Result<()> {
     let options = eframe::NativeOptions {
-        viewport: egui::ViewportBuilder::default().with_inner_size([800.0, 600.0]),
+        viewport: egui::ViewportBuilder::default().with_inner_size([450.0, 200.0]),
         ..Default::default()
     };
 
@@ -41,44 +41,57 @@ impl Default for PasswordGenerator {
 impl eframe::App for PasswordGenerator {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.add(egui::Slider::new(&mut self.password_length, 8..=24)
-                .handle_shape(HandleShape::Circle)
-                .trailing_fill(true)
-                .text("Password Length"));
+            ui.spacing_mut().item_spacing.y = 20.0;
 
-            ui.add(egui::Checkbox::new(&mut self.use_spec_char, "Use Special Characters"));
-            if ui.button("Generate Password").clicked() {
-                let mut rng = rand::rng();
-                let mut character: char;
-                let mut password_tmp_string: String = String::new();
-                let mut counter: u8 = 0;
-                if self.use_spec_char {
-                    let special_character_vec: Vec<u32> = build_spec_char_vec();
-                    let vec_length: u8 = special_character_vec.len() as u8;
+            ui.vertical_centered(|ui| {
+                ui.label("To generate a password, adjust the slider to the desired password length and click on the Generate Password button. If you want to disable special characters, uncheck the option.");
+                ui.horizontal(|ui| {
+                    ui.add(egui::Slider::new(&mut self.password_length, 8..=24)
+                        .handle_shape(HandleShape::Circle)
+                        .trailing_fill(true)
+                        .text("Password Length"));
 
-                    while counter < self.password_length {
-                        let index:u32 = (&mut rng).random_range(..vec_length) as u32;
-                        character = char::from_u32(special_character_vec[index as usize]).unwrap();
-                        password_tmp_string = password_tmp_string + character.to_string().as_str();
-                        counter += 1;
+                    ui.add(egui::Checkbox::new(&mut self.use_spec_char, "Use Special Characters"));
+                });
+
+                if ui.button("Generate Password").clicked() {
+                    let mut rng = rand::rng();
+                    let mut character: char;
+                    let mut password_tmp_string: String = String::new();
+                    let mut counter: u8 = 0;
+
+                    if self.use_spec_char {
+                        let special_character_vec: Vec<u32> = build_spec_char_vec();
+                        let vec_length: u8 = special_character_vec.len() as u8;
+
+                        while counter < self.password_length {
+                            let index:u32 = (&mut rng).random_range(..vec_length) as u32;
+                            character = char::from_u32(special_character_vec[index as usize]).unwrap();
+                            password_tmp_string = password_tmp_string + character.to_string().as_str();
+                            counter += 1;
+                        }
                     }
-                }
-                else {
-                    let character_vec: Vec<u32> = build_char_vec();
-                    let vec_length: u8 = character_vec.len() as u8;
+                    else {
+                        let character_vec: Vec<u32> = build_char_vec();
+                        let vec_length: u8 = character_vec.len() as u8;
 
-                    while counter < self.password_length {
-                        let index = rng.random_range(..vec_length) as u32;
-                        character = char::from_u32(character_vec[index as usize]).unwrap();
-                        password_tmp_string = password_tmp_string + character.to_string().as_str();
-                        counter += 1;
+                        while counter < self.password_length {
+                            let index = rng.random_range(..vec_length) as u32;
+                            character = char::from_u32(character_vec[index as usize]).unwrap();
+                            password_tmp_string = password_tmp_string + character.to_string().as_str();
+                            counter += 1;
+                        }
                     }
+
+                    self.password = password_tmp_string;
                 }
 
-                self.password = password_tmp_string;
-            }
-
-            ui.add(egui::TextEdit::singleline(&mut self.password).font(TextStyle::Monospace));
+                ui.add(egui::TextEdit::singleline(&mut self.password)
+                    .desired_width(300.0)
+                    .char_limit(24)
+                    .horizontal_align(egui::Align::Center)
+                    .font(FontId::monospace(18.0)));
+            });
         });
     }
 }
@@ -123,15 +136,3 @@ fn build_char_vec() -> Vec<u32> {
     }
     return vector;
 }
-
-/*
-    main_window.on_copy_to_clipboard(move || {
-        let main = main_window_weak_copy_clipboard.upgrade().unwrap();
-        let mut clip = Clipboard::new().unwrap();
-        let password_text: String = main.get_password().to_string();
-        clip.set_text(password_text);
-        println!("{:?}", clip.get_text());
-    });
-
-    main_window.run().unwrap();
-     */
