@@ -25,7 +25,7 @@ fn main() -> eframe::Result<()> {
 struct PasswordGenerator {
     password_length: u8,
     use_spec_char: bool,
-    password: String,
+    output: String,
 }
 
 impl Default for PasswordGenerator {
@@ -33,7 +33,7 @@ impl Default for PasswordGenerator {
         Self {
             password_length: 8,
             use_spec_char: true,
-            password: "".to_string(),
+            output: "".to_string(),
         }
     }
 }
@@ -55,10 +55,10 @@ impl eframe::App for PasswordGenerator {
                 });
 
                 if ui.button("Generate Password").clicked() {
-                    self.password = password::create_password(self.use_spec_char, self.password_length);
+                    self.output = password::create_password(self.use_spec_char, self.password_length);
                 }
 
-                ui.add(egui::TextEdit::singleline(&mut self.password)
+                ui.add(egui::TextEdit::singleline(&mut self.output)
                     .desired_width(300.0)
                     .char_limit(24)
                     .horizontal_align(egui::Align::Center)
