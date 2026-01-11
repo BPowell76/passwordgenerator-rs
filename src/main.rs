@@ -1,101 +1,69 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+mod password;
 
 use std::rc::Rc;
 use arboard::{
     Clipboard
 };
-use rand::Rng;
-use slint::ToSharedString;
-slint::include_modules!();
+use eframe::egui;
+use egui::style::HandleShape;
+use egui::FontId;
 
-fn build_spec_char_vec() -> Vec<u32> {
-    let mut vector: Vec<u32> = Vec::new();
-    let mut counter: u32 = 33;
-    while counter < 127 {
-        if counter == 34 {
-            counter += 1;
-            continue;
-        }
-        vector.push(counter);
-        counter += 1;
-    }
+fn main() -> eframe::Result<()> {
+    let options = eframe::NativeOptions {
+        viewport: egui::ViewportBuilder::default().with_inner_size([450.0, 200.0]),
+        ..Default::default()
+    };
 
-    return vector;
+    eframe::run_native(
+        "Password Generator",
+        options,
+        Box::new(|_ctx| Ok(Box::new(PasswordGenerator::default()))),
+    )
 }
 
-fn build_char_vec() -> Vec<u32> {
-    let mut vector: Vec<u32> = Vec::new();
-    let mut counter: u32 = 48;
-    while counter < 123 {
-        if counter == 58
-            || counter == 59
-            || counter == 60
-            || counter == 61
-            || counter == 62
-            || counter == 63
-            || counter == 64
-            || counter == 91
-            || counter == 92
-            || counter == 93
-            || counter == 94
-            || counter == 95
-            || counter == 96 {
-            counter += 1;
-            continue;
-        }
-        vector.push(counter);
-        counter += 1;
-    }
-    return vector;
+struct PasswordGenerator {
+    password_length: u8,
+    use_spec_char: bool,
+    output: String,
 }
 
-fn main() {
-    let main_window = std::rc::Rc::new(MainWindow::new().unwrap());
-    let main_window_weak_password_gen = Rc::downgrade(&main_window);
-    let main_window_weak_copy_clipboard = Rc::downgrade(&main_window);
-
-    main_window.on_generate_password( move || {
-        let main = main_window_weak_password_gen.upgrade().unwrap();
-        let password_length: u8 = main.get_password_length() as u8;
-        let special_characters: bool = main.get_use_special_characters();
-        let mut password: String = "".to_string();
-        let mut counter: u8 = 0;
-        let mut rng = rand::rng();
-        let mut character: String;
-
-        if special_characters {
-            let special_character_vec: Vec<u32> = build_spec_char_vec();
-            let vec_length: u8 = special_character_vec.len() as u8;
-
-            while counter < password_length {
-                let index = rng.random_range(..vec_length) as u32;
-                character = char::from_u32(special_character_vec[index as usize]).unwrap().to_string();
-                password = password + character.as_str();
-                counter += 1;
-            }
+impl Default for PasswordGenerator {
+    fn default() -> Self {
+        Self {
+            password_length: 8,
+            use_spec_char: true,
+            output: "".to_string(),
         }
-        else {
-            let character_vec: Vec<u32> = build_char_vec();
-            let vec_length: u8 = character_vec.len() as u8;
+    }
+}
 
-            while counter < password_length {
-                let index = rng.random_range(..vec_length) as u32;
-                character = char::from_u32(character_vec[index as usize]).unwrap().to_string();
-                password = password + character.as_str();
-                counter += 1;
-            }
-        }
+impl eframe::App for PasswordGenerator {
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        egui::CentralPanel::default().show(ctx, |ui| {
+            ui.spacing_mut().item_spacing.y = 20.0;
 
-        main.set_password(password.to_shared_string());
-    });
+            ui.vertical_centered(|ui| {
+                ui.label("To generate a password, adjust the slider to the desired password length and click on the Generate Password button. If you want to disable special characters, uncheck the option.");
+                ui.horizontal(|ui| {
+                    ui.add(egui::Slider::new(&mut self.password_length, 8..=24)
+                        .handle_shape(HandleShape::Circle)
+                        .trailing_fill(true)
+                        .text("Password Length"));
 
-    main_window.on_copy_to_clipboard(move || {
-        let main = main_window_weak_copy_clipboard.upgrade().unwrap();
-        let mut clip = Clipboard::new().unwrap();
-        let password_text: String = main.get_password().to_string();
-        clip.set_text(password_text);
-        println!("{:?}", clip.get_text());
-    });
+                    ui.add(egui::Checkbox::new(&mut self.use_spec_char, "Use Special Characters"));
+                });
 
-    main_window.run().unwrap();
+                if ui.button("Generate Password").clicked() {
+                    self.output = password::create_password(self.use_spec_char, self.password_length);
+                }
+
+                ui.add(egui::TextEdit::singleline(&mut self.output)
+                    .desired_width(300.0)
+                    .char_limit(24)
+                    .horizontal_align(egui::Align::Center)
+                    .font(FontId::monospace(18.0)));
+            });
+        });
+    }
 }

@@ -1,20 +1,19 @@
 # PasswordGenerator-rs
 ## Description
-PasswordGenerator-rs is a simple rust application built with the Slint GUI library.
+PasswordGenerator-rs is a simple rust application built with the **egui** GUI library and **eframe** framework.
 This application aims to offer a local, offline password generation tool using standard ASCII character codes.
 Passwords can 8 to 24 characters in length and have the option to not use special characters.
 
-![Static Badge](https://img.shields.io/badge/cargo-1.90.0-orange) [![Latest Release](https://gitlab.com/TheMet4lGod/passwordgenerator-rs/-/badges/release.svg)](https://gitlab.com/TheMet4lGod/passwordgenerator-rs/-/releases)
+![Static Badge](https://img.shields.io/badge/cargo-1.92.0-orange)
 
 ## Dependency List
 The following dependencies are used in this project:
 
-| Dependency    |   Version   | Dependency Status                                                                                                     |
-| :---:         |:-----------:|:----------------------------------------------------------------------------------------------------------------------|
-| rand          | 0.10.0-rc.0 | [![dependency status](https://deps.rs/crate/rand/0.10.0-rc.0/status.svg)](https://deps.rs/crate/rand/0.10.0-rc.0)     |
-| slint         |   1.13.1    | [![dependency status](https://deps.rs/crate/slint/1.13.1/status.svg)](https://deps.rs/crate/slint/1.13.1)             |
-| slint-build   |   1.13.1    | [![dependency status](https://deps.rs/crate/slint-build/1.13.1/status.svg)](https://deps.rs/crate/slint-build/1.13.1) |
-
+| Dependency |   Version   | Dependency Status                                                                                                 |
+|:----------:|:-----------:|:------------------------------------------------------------------------------------------------------------------|
+|   eframe   |   0.33.3    | [![dependency status](https://deps.rs/crate/eframe/0.33.3/status.svg)](https://deps.rs/crate/eframe/0.33.3)       |
+|    egui    |   0.33.3    | [![dependency status](https://deps.rs/crate/egui/0.33.3/status.svg)](https://deps.rs/crate/egui/0.33.3)           |
+|    rand    | 0.10.0-rc.0 | [![dependency status](https://deps.rs/crate/rand/0.10.0-rc.0/status.svg)](https://deps.rs/crate/rand/0.10.0-rc.0) |
 
 ## Installation
 > [!warning]
