@@ -1,4 +1,9 @@
 # PasswordGenerator-rs
+
+<div style="text-align: center;">
+    <img src="ui-example.png" alt="PasswordGenerator-rs UI" align="middle"/>
+</div>
+
 ## Description
 PasswordGenerator-rs is a simple rust application built with the **egui** GUI library and **eframe** framework.
 This application aims to offer a local, offline password generation tool using standard ASCII character codes.
