@@ -1,0 +1,7 @@
+on: [push]
+jobs:
+  error_check:
+    runs-on: rust-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cargo build -v
