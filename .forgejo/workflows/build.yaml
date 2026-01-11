@@ -1,7 +1,10 @@
 on: [push]
 jobs:
-  error_check:
-    runs-on: rust-latest
+  checkout:
+    runs-on: node-lts-trixie
     steps:
       - uses: actions/checkout@v4
+  build:
+    runs-on: rust-latest
+    steps:
       - run: cargo build -v
