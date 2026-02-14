@@ -1,4 +1,4 @@
-use rand::Rng;
+use rand::prelude::*;
 
 fn build_spec_char_vec() -> Vec<u32> {
     let mut vector: Vec<u32> = Vec::new();
