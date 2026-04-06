@@ -5,7 +5,7 @@ edition = "2024"
 license = "Apache-2.0"
 
 [dependencies]
-arboard = "3.6.1"
-eframe = "0.33.3"
-egui = "0.33.3"
-rand = "0.10.0"
+arboard = ">=3.6"
+eframe = ">=0.33"
+egui = ">=0.33"
+rand = ">=0.10"
