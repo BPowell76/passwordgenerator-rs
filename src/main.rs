@@ -39,8 +39,8 @@ impl Default for PasswordGenerator {
 }
 
 impl eframe::App for PasswordGenerator {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        egui::CentralPanel::default().show(ctx, |ui| {
+    fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
+        egui::CentralPanel::default().show_inside(ui, |ui| {
             ui.spacing_mut().item_spacing.y = 20.0;
 
             ui.vertical_centered(|ui| {
