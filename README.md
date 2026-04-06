@@ -1,5 +1,5 @@
 # PasswordGenerator-rs
-![Static Badge](https://img.shields.io/badge/cargo-1.93.1-orange)
+![Static Badge](https://img.shields.io/badge/cargo-1.94.1-orange)
 
 <div style="text-align: center;">
     <img src="ui-example.png" alt="PasswordGenerator-rs UI" />
@@ -13,11 +13,11 @@ Passwords can 8 to 24 characters in length and have the option to not use specia
 ## Dependency List
 The following dependencies are used in this project:
 
-| Dependency | Version | Dependency Status                                                                                                 |
-|:----------:|:-------:|:------------------------------------------------------------------------------------------------------------------|
-|   eframe   | 0.33.3  | [![dependency status](https://deps.rs/crate/eframe/0.33.3/status.svg)](https://deps.rs/crate/eframe/0.33.3)       |
-|    egui    | 0.33.3  | [![dependency status](https://deps.rs/crate/egui/0.33.3/status.svg)](https://deps.rs/crate/egui/0.33.3)           |
-|    rand    | 0.10.0  | [![dependency status](https://deps.rs/crate/rand/0.10.0/status.svg)](https://deps.rs/crate/rand/0.10.0) |
+| Dependency | Version | Dependency Status                                                                                           |
+|:----------:|:-------:|:------------------------------------------------------------------------------------------------------------|
+|   eframe   | 0.34.1  | [![dependency status](https://deps.rs/crate/eframe/0.34.1/status.svg)](https://deps.rs/crate/eframe/0.34.1) |
+|    egui    | 0.34.1  | [![dependency status](https://deps.rs/crate/egui/0.34.1/status.svg)](https://deps.rs/crate/egui/0.34.1)     |
+|    rand    | 0.10.0  | [![dependency status](https://deps.rs/crate/rand/0.10.0/status.svg)](https://deps.rs/crate/rand/0.10.0)     |
 
 ## Installation
 > [!warning]
