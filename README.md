@@ -41,6 +41,9 @@ The following dependencies are used in this project:
 
 ## Installation
 ### Building From Source
+> [!important]
+> To build from source you need at least cargo version **1.92.0** to support the egui and eframe crates.
+
 To build this project from source, use the following steps:
 
 1. Clone the repository using `git clone`.
