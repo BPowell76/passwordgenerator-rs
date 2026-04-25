@@ -16,6 +16,11 @@ Passwords can be 8 to 24 characters in length and have the option to not use spe
 > The 8-character minimum is generally considered the bare minimum for making a password with some experts suggesting it should be at least 12 characters.
 
 This project was created as a means of experimenting with creating a GUI application using Rust.
+Rust was selected as a means of exploring creating a desktop application using a low-level language versus using C or C++.
+Being new at low-level programming, rust was chosen due to its enforcement on safety.
+As I get more comfortable with low-level programming, I could look at remaking this using C/C++.
+
+The egui and eframe packages were chosen for developing the UI as they are written natively with rust instead of using some other language/syntax.
 
 ## Usage
 This application has a simple user interface.
@@ -54,7 +59,13 @@ The current stable release has two locally pre-compiled versions of the project:
 1. A Linux binary (`passwordgenerator-rs`)
 2. A Windows executable (`passwordgenerator-rs.exe`)
 
+> [!note]
+> At the time of updating this README, I do not know of (nor have I looked) for a Mac OS build target.
+
 To check the integrity of the executables, a `passwordgenerator-rs.sha256` file is provided with SHA256 checksum values.
+Checking the integrity of the binaries, can be performed using `sha256sum -c passwordgenerator-rs.sha256` on Linux and using `Get-FileHash` on Windows using PowerShell.
+If on Linux, ensure that the checksum file and the binary are located in the same directory.
+If the binary is good, the terminal output will say **OK** along with the package name.
 
 ## License
 The project is licensed under the **Apache License, Version 2.0**.
