@@ -72,6 +72,7 @@ The current stable release has two locally pre-compiled 64-bit versions of the p
 
 To check the integrity of the executables, a `passwordgenerator-rs.sha256` file is provided with SHA256 checksum values.
 Checking the integrity of the binaries, can be performed using `sha256sum -c passwordgenerator-rs.sha256` on Linux and using `(Get-FileHash .\passwordgenerator-rs.exe).Hash` on Windows using PowerShell.
+
 If on Linux, ensure that the checksum file and the binary are located in the same directory.
 If the binary is good, the terminal output will say **OK** along with the package name.
 
