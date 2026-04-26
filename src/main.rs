@@ -1,10 +1,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod password;
 
-use std::rc::Rc;
-use arboard::{
-    Clipboard
-};
 use eframe::egui;
 use egui::style::HandleShape;
 use egui::FontId;
@@ -39,7 +35,7 @@ impl Default for PasswordGenerator {
 }
 
 impl eframe::App for PasswordGenerator {
-    fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show_inside(ui, |ui| {
             ui.spacing_mut().item_spacing.y = 20.0;
 
