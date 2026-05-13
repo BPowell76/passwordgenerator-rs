@@ -63,3 +63,14 @@ impl eframe::App for PasswordGenerator {
         });
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_password_generation () {
+        let gen_password: String = password::create_password(false, 24);
+        assert_eq!(gen_password.len(), 24);
+    }
+}
