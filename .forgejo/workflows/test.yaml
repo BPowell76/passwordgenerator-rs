@@ -3,7 +3,5 @@ jobs:
   test:
     runs-on: rust-latest
     steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: main
+      - run: git clone https://forge.beefsuplex.com/TheMet4lGod/passwordgenerator-rs.git .
       - run: cargo test
