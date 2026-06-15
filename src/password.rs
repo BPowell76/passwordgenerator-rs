@@ -41,34 +41,37 @@ fn build_char_vec() -> Vec<u32> {
     return vector;
 }
 
-pub fn create_password(use_spec_char: bool, length: u8) -> String {
+fn build_password(password_length: u8, character_vector: Vec<u32>, vector_length: u8) -> String {
     let mut rng = rand::rng();
     let mut character: char;
-    let pass_length: u8 = length.clamp(8,24);
-    let mut password_string: String = String::with_capacity(pass_length as usize);
     let mut counter: u8 = 0;
+    let mut password_string: String = String::with_capacity(password_length as usize);
+
+    while counter < password_length {
+        let index = rng.random_range(..vector_length) as u32;
+        character = char::from_u32(character_vector[index as usize]).unwrap();
+        (&mut password_string).push(character);
+        counter += 1;
+    }
+
+    return password_string
+}
+
+pub fn create_password(use_spec_char: bool, length: u8) -> String {
+    let pass_length: u8 = length.clamp(8,24);
+    let password_string: String;
 
     if use_spec_char {
         let special_character_vec: Vec<u32> = build_spec_char_vec();
         let vec_length: u8 = special_character_vec.len() as u8;
 
-        while counter < pass_length {
-            let index:u32 = (&mut rng).random_range(..vec_length) as u32;
-            character = char::from_u32(special_character_vec[index as usize]).unwrap();
-            (&mut password_string).push(character);
-            counter += 1;
-        }
+        password_string = build_password(pass_length, special_character_vec, vec_length);
     }
     else {
         let character_vec: Vec<u32> = build_char_vec();
         let vec_length: u8 = character_vec.len() as u8;
 
-        while counter < pass_length {
-            let index = rng.random_range(..vec_length) as u32;
-            character = char::from_u32(character_vec[index as usize]).unwrap();
-            (&mut password_string).push(character);
-            counter += 1;
-        }
+        password_string = build_password(pass_length, character_vec, vec_length);
     }
 
     return password_string;
