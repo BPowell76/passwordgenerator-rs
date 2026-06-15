@@ -44,7 +44,7 @@ fn build_char_vec() -> Vec<u32> {
 pub fn create_password(use_spec_char: bool, length: u8) -> String {
     let mut rng = rand::rng();
     let mut character: char;
-    let mut password_tmp_string: String = String::new();
+    let mut password_string: String = String::with_capacity(length as usize);
     let mut counter: u8 = 0;
 
     if use_spec_char {
@@ -54,7 +54,7 @@ pub fn create_password(use_spec_char: bool, length: u8) -> String {
         while counter < length {
             let index:u32 = (&mut rng).random_range(..vec_length) as u32;
             character = char::from_u32(special_character_vec[index as usize]).unwrap();
-            password_tmp_string = password_tmp_string + character.to_string().as_str();
+            (&mut password_string).push(character);
             counter += 1;
         }
     }
@@ -65,10 +65,10 @@ pub fn create_password(use_spec_char: bool, length: u8) -> String {
         while counter < length {
             let index = rng.random_range(..vec_length) as u32;
             character = char::from_u32(character_vec[index as usize]).unwrap();
-            password_tmp_string = password_tmp_string + character.to_string().as_str();
+            password_string = password_string + character.to_string().as_str();
             counter += 1;
         }
     }
 
-    return password_tmp_string;
+    return password_string;
 }
