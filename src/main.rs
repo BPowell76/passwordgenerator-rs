@@ -53,7 +53,7 @@ impl eframe::App for PasswordGenerator {
                 });
 
                 if ui.button("Generate Password").clicked() {
-                    self.output = password::create_password(self.use_spec_char, self.password_length);
+                    self.output = password::create_password(self.use_spec_char, self.password_length.clamp(min_pass_length, max_pass_length));
                 }
 
                 ui.add(egui::TextEdit::singleline(&mut self.output)
