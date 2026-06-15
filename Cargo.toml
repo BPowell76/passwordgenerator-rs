@@ -7,6 +7,6 @@ rust-version = "1.92.0"
 
 [dependencies]
 arboard = ">=3.6"
-eframe = ">=0.33"
-egui = ">=0.33"
-rand = ">=0.10"
+eframe = "0.34.3"
+egui = "0.34.3"
+rand = "0.10.1"
