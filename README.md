@@ -38,8 +38,8 @@ The following dependencies are used in this project:
 
 | Dependency | Project Version | Dependency Status                                                                                            |                   Crates.io Latest Version                   |
 |:----------:|:---------------:|:-------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------:|
-|   eframe   |     0.34.1      | [![dependency status](https://deps.rs/crate/eframe/0.34.1/status.svg)](https://deps.rs/crate/eframe/0.34.1)  | ![Crates.io Version](https://img.shields.io/crates/v/eframe) |
-|    egui    |     0.34.1      | [![dependency status](https://deps.rs/crate/egui/0.34.1/status.svg)](https://deps.rs/crate/egui/0.34.1)      |  ![Crates.io Version](https://img.shields.io/crates/v/egui)  |
+|   eframe   |     0.34.3      | [![dependency status](https://deps.rs/crate/eframe/0.34.3/status.svg)](https://deps.rs/crate/eframe/0.34.3)  | ![Crates.io Version](https://img.shields.io/crates/v/eframe) |
+|    egui    |     0.34.3      | [![dependency status](https://deps.rs/crate/egui/0.34.3/status.svg)](https://deps.rs/crate/egui/0.34.3)      |  ![Crates.io Version](https://img.shields.io/crates/v/egui)  |
 |    rand    |     0.10.1      | [![dependency status](https://deps.rs/crate/rand/0.10.1/status.svg)](https://deps.rs/crate/rand/0.10.1)      |  ![Crates.io Version](https://img.shields.io/crates/v/rand)  |
 
 ## Installation
