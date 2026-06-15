@@ -75,4 +75,12 @@ mod test {
         let gen_password: String = password::create_password(false, 24);
         assert_eq!(gen_password.len(), 24);
     }
+
+    #[test]
+    // Test clamping by purposely passing a value greater than the max
+    fn test_password_length_limits () {
+        let max_length: u8 = 24;
+        let password: String = password::create_password(false, 255);
+        assert_eq!(password.len(), max_length as usize);
+    }
 }
