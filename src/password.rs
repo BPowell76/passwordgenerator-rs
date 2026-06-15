@@ -44,7 +44,7 @@ fn build_char_vec() -> Vec<u32> {
 pub fn create_password(use_spec_char: bool, length: u8) -> String {
     let mut rng = rand::rng();
     let mut character: char;
-    let mut password_string: String = String::with_capacity(length as usize);
+    let mut password_string: String = String::with_capacity(length.clamp(8,24) as usize);
     let mut counter: u8 = 0;
 
     if use_spec_char {
