@@ -1,0 +1,7 @@
+on: [push]
+jobs:
+  test:
+    runs-on: rust-latest
+    steps:
+      - run: git clone https://forge.beefsuplex.com/TheMet4lGod/passwordgenerator-rs.git .
+      - run: cargo test
