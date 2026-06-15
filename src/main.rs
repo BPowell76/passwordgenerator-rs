@@ -37,12 +37,14 @@ impl Default for PasswordGenerator {
 impl eframe::App for PasswordGenerator {
     fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show_inside(ui, |ui| {
+            let min_pass_length: u8 = 8;
+            let max_pass_length: u8 = 24;
             ui.spacing_mut().item_spacing.y = 20.0;
 
             ui.vertical_centered(|ui| {
                 ui.label("To generate a password, adjust the slider to the desired password length and click on the Generate Password button. If you want to disable special characters, uncheck the option.");
                 ui.horizontal(|ui| {
-                    ui.add(egui::Slider::new(&mut self.password_length, 8..=24)
+                    ui.add(egui::Slider::new(&mut self.password_length, min_pass_length..=max_pass_length)
                         .handle_shape(HandleShape::Circle)
                         .trailing_fill(true)
                         .text("Password Length"));
@@ -56,7 +58,7 @@ impl eframe::App for PasswordGenerator {
 
                 ui.add(egui::TextEdit::singleline(&mut self.output)
                     .desired_width(300.0)
-                    .char_limit(24)
+                    .char_limit(max_pass_length as usize)
                     .horizontal_align(egui::Align::Center)
                     .font(FontId::monospace(18.0)));
             });
