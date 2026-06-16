@@ -39,7 +39,7 @@ fn build_password(use_special_characters: bool, password_length: u8) -> String {
     while counter < password_length {
         let index = rng.random_range(..character_vector.len()) as u32;
         character = char::from_u32(character_vector[index as usize]).unwrap();
-        (&mut password_string).push(character);
+        password_string.push(character);
         counter += 1;
     }
 
